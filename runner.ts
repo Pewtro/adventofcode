@@ -42,7 +42,7 @@ if (scriptName && year && day) {
 				});
 			} else {
 				// Exit, there was a problem with the script name
-				console.log(`Make sure the file script exists as ${scriptName}.js`);
+				console.log(`Make sure the file script exists as ${scriptName}.${ext}`);
 			}
 		});
 	});
