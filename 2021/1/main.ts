@@ -2,8 +2,12 @@ import * as readline from "readline";
 import { stdin, stdout } from "process";
 
 //Hack to avoid error #donthate
-const rl = readline.createInterface(stdin as unknown as NodeJS.ReadableStream, stdout as unknown as NodeJS.WritableStream);
+const rl = readline.createInterface(
+  stdin as unknown as NodeJS.ReadableStream,
+  stdout as unknown as NodeJS.WritableStream
+);
 
+const debug = false;
 //Keep track of the current problem being solved
 const caseTracker = {
   count: 0,
@@ -32,6 +36,7 @@ const lineTracker = {
   prevThreeSumVal: null,
   threeSumArr: [null, null, null],
   calc() {
+    debug && console.log("sum", this.sum(), "prevThreeSumVal", this.prevThreeSumVal, this.sum() > this.prevThreeSumVal);
     return this.sum() > this.prevThreeSumVal;
   },
   shift(newVal: number) {
@@ -59,7 +64,7 @@ rl.on("line", function (line) {
 
   //Part two
   lineTracker.shift(lineVal);
-  if (lineTracker.getLineCount() >= 3) {
+  if (lineTracker.getLineCount() >= 4) {
     if (lineTracker.calc()) {
       caseTracker.threeSumInc();
     }
