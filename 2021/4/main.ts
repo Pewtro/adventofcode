@@ -1,26 +1,26 @@
-import { readFileSync } from "fs";
+import { readFileSync } from 'fs';
 
-const input = readFileSync(__dirname + "/tests/input.in").toString();
+const input = readFileSync(__dirname + '/tests/input.in').toString();
 
 const debugInput = false;
 const debugGeneral = false;
 
 const guesses: number[] = input
-  .split("\n")[0]
+  .split('\n')[0]
   .trim()
-  .split(",")
+  .split(',')
   .map((guess) => parseInt(guess));
 debugInput && console.log(guesses);
 
 type Board = number[][];
 
 const boards: Board[] = input
-  .split("\n")
+  .split('\n')
   .splice(2)
-  .join("\n")
-  .split("\n\n")
+  .join('\n')
+  .split('\n\n')
   .map((board) => {
-    return board.split("\n").map((row) => {
+    return board.split('\n').map((row) => {
       return row
         .trim()
         .split(/\s+/)
@@ -32,7 +32,7 @@ debugInput && console.log(boards);
 const checkColumns = (board: Board) => {
   let hasWinner = false;
   for (let i = 0; i < board[0].length; i++) {
-    let columnValues: number[] = [];
+    const columnValues: number[] = [];
     board.forEach((row) => {
       columnValues.push(row[i]);
     });
@@ -51,7 +51,7 @@ const calculateScore = (board: Board, guess: number) => {
   return boardSum * guess;
 };
 
-let winningBoards: number[] = [];
+const winningBoards: number[] = [];
 guesses.forEach((guess) => {
   boards.forEach((board, boardIndex) => {
     board.forEach((row) => {
@@ -59,14 +59,18 @@ guesses.forEach((guess) => {
       if (valIdx !== -1) {
         row[valIdx] = -1;
       }
-      if ((row.every((x) => x === -1) || checkColumns(board)) && winningBoards.indexOf(boardIndex) === -1) {
-        debugGeneral && console.log("Winner found in ", board);
+      if (
+        (row.every((x) => x === -1) || checkColumns(board)) &&
+        winningBoards.indexOf(boardIndex) === -1
+      ) {
+        debugGeneral && console.log('Winner found in ', board);
         winningBoards.push(boardIndex);
-        debugGeneral && console.log("score for board", boardIndex, "is", calculateScore(board, guess));
+        debugGeneral &&
+          console.log('score for board', boardIndex, 'is', calculateScore(board, guess));
         if (winningBoards.length === 1) {
-          console.log("Part one answer", calculateScore(board, guess));
+          console.log('Part one answer', calculateScore(board, guess));
         } else if (winningBoards.length === boards.length) {
-          console.log("Part two answer", calculateScore(board, guess));
+          console.log('Part two answer', calculateScore(board, guess));
         }
       }
     });

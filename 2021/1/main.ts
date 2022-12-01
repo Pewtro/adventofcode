@@ -1,10 +1,10 @@
-import * as readline from "readline";
-import { stdin, stdout } from "process";
+import * as readline from 'readline';
+import { stdin, stdout } from 'process';
 
 //Hack to avoid error #donthate
 const rl = readline.createInterface(
   stdin as unknown as NodeJS.ReadableStream,
-  stdout as unknown as NodeJS.WritableStream
+  stdout as unknown as NodeJS.WritableStream,
 );
 
 const debug = false;
@@ -36,7 +36,14 @@ const lineTracker = {
   prevThreeSumVal: null,
   threeSumArr: [null, null, null],
   calc() {
-    debug && console.log("sum", this.sum(), "prevThreeSumVal", this.prevThreeSumVal, this.sum() > this.prevThreeSumVal);
+    debug &&
+      console.log(
+        'sum',
+        this.sum(),
+        'prevThreeSumVal',
+        this.prevThreeSumVal,
+        this.sum() > this.prevThreeSumVal,
+      );
     return this.sum() > this.prevThreeSumVal;
   },
   shift(newVal: number) {
@@ -50,7 +57,7 @@ const lineTracker = {
 };
 
 //Solver that executes on a line by line basis
-rl.on("line", function (line) {
+rl.on('line', function (line) {
   //Ensure current line is a number
   const lineVal = parseInt(line);
 
@@ -69,10 +76,10 @@ rl.on("line", function (line) {
       caseTracker.threeSumInc();
     }
   }
-}).on("close", function () {
+}).on('close', function () {
   //Throw out result
-  console.log("Part one increments: ", caseTracker.count);
-  console.log("Part two increments: ", caseTracker.threeSumCount);
+  console.log('Part one increments: ', caseTracker.count);
+  console.log('Part two increments: ', caseTracker.threeSumCount);
   //exit with code 0
   process.exit(0);
 });
