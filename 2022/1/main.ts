@@ -5,11 +5,11 @@ const inputName = 'input';
 const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
 
 const amountsCarried = input
-  .split('\r\n\r\n')
+  .split('\n\n')
   .filter((untrimmed) => untrimmed.trim().length > 0)
   .map((val) =>
     val
-      .split('\r\n')
+      .split('\n')
       .map((e) => parseInt(e))
       .reduce((a, b) => a + b),
   );
