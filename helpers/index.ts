@@ -1,1 +1,1 @@
-export { getMaxNthValues } from './get-max-nth-values';
+export { getMaxNthValues, hasDuplicates } from './array-helpers';

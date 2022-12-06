@@ -1,3 +1,7 @@
+export const hasDuplicates = (array: (string | number | boolean)[]) => {
+  return new Set(array).size !== array.length;
+};
+
 export const getMaxNthValues = (arr: number[], n: number): number[] => {
   if (arr.length <= n) {
     return arr;
