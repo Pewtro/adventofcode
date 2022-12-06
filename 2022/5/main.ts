@@ -5,22 +5,24 @@ const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
 
 const [rawStacks, instructions] = input.split('\n\n');
 
-const stacks = [[]];
-
-rawStacks.split('\n').forEach((stack) => {
-  for (let i = 1; i < stack.length; i += 4) {
-    if (stack[i] !== ' ') {
-      stacks[(i - 1) / 4] = stacks[(i - 1) / 4] || [];
-      stacks[(i - 1) / 4].push(stack[i]);
+const getStacks = () => {
+  const stacks = [[]];
+  rawStacks.split('\n').forEach((stack) => {
+    for (let i = 1; i < stack.length; i += 4) {
+      if (stack[i] !== ' ') {
+        stacks[(i - 1) / 4] = stacks[(i - 1) / 4] || [];
+        stacks[(i - 1) / 4].push(stack[i]);
+      }
     }
-  }
-});
+  });
+  return stacks;
+};
 
 const getCratesOnTop = (fnStacks: string[][]) =>
   fnStacks.reduce((onTop: string, stack) => onTop.concat(stack[0]), '');
 
-const part1Stacks = JSON.parse(JSON.stringify(stacks));
-const part2Stacks = JSON.parse(JSON.stringify(stacks));
+const part1Stacks = getStacks();
+const part2Stacks = getStacks();
 
 instructions.split('\n').forEach((instruction) => {
   const [amount, from, to] = instruction
