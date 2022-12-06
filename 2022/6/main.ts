@@ -5,17 +5,15 @@ const inputName = 'input';
 const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
 
 const findFirstUniqueNValues = (str: string, n: number) => {
-  const idxN = n - 1;
-  const [firstN, remaining] = [str.slice(0, idxN).split(''), str.slice(idxN)];
+  const [firstN, remaining] = [str.slice(0, n).split(''), str.slice(n)];
 
   for (let i = 0; i < remaining.length; i++) {
-    const currentChar = remaining.charAt(i);
-    if (!firstN.includes(currentChar) && !hasDuplicates(firstN)) {
+    if (!hasDuplicates(firstN)) {
       //First marker identified
       return i + n;
     }
     firstN.shift();
-    firstN.push(currentChar);
+    firstN.push(remaining.charAt(i));
   }
 };
 
