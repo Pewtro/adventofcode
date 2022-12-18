@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 
-const inputName = 'input';
+const inputName = 'example';
 const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
 
 console.log(input);
