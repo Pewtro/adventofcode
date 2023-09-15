@@ -20,8 +20,7 @@
     "prepare": "husky install",
     "stylecheck": "prettier --check .",
     "test:ci": "concurrently \"pnpm:lint\" \"pnpm:typecheck\" \"pnpm:stylecheck\" ",
-    "typecheck": "tsc",
-    "watch": "yarn tsx"
+    "typecheck": "tsc"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,md,mdx,yml}": [

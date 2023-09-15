@@ -2,8 +2,15 @@ import * as fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { exec } from 'node:child_process';
 
-const [year, day, scriptName = 'main', testName = 'input', extension = 'ts', testExtension = 'in'] =
-  process.argv.slice(2);
+const [
+  year,
+  day,
+  shouldWatch = 'true',
+  scriptName = 'main',
+  testName = 'input',
+  extension = 'ts',
+  testExtension = 'in',
+] = process.argv.slice(2);
 const testPath = `${year}/${day}/tests/${testName}.${testExtension}`;
 const target = `${year}/${day}/${scriptName}.${extension}`;
 const expectedScriptName = `${scriptName}.${extension}`;
@@ -20,7 +27,8 @@ if (scriptName && year && day) {
       if (files.includes(expectedScriptName)) {
         // setup spawn
         const startTime = performance.now();
-        const child = exec(`tsx ${target}`);
+        const watchValue = shouldWatch === 'true' ? 'watch --clear-screen=false' : '';
+        const child = exec(`tsx ${watchValue} ${target}`);
         // prepare the encoding and pipe
         child.stdin?.setDefaultEncoding('utf8');
         child.stdout?.pipe(process.stdout as unknown as NodeJS.WritableStream);
