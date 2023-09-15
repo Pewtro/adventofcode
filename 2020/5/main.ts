@@ -1,4 +1,4 @@
-import fs = require('fs');
+import fs from 'node:fs';
 
 const file = fs.readFileSync('input.txt').toString().split('\n');
 
@@ -44,7 +44,7 @@ for (const seats of file) {
   seatIds.push(seatId);
 }
 
-console.log('The highest seatID is: ', currentHighestId);
+console.log('The highest seatID is:', currentHighestId);
 
 //endregion
 
@@ -58,12 +58,12 @@ seatIds.sort(compareNumbers);
 
 const possibleSeatIds = [];
 let lastSeatId = 0;
-for (let i = 0; i < seatIds.length; i++) {
-  if (seatIds[i] > lastSeatId + 1 && seatIds[i] >= 8) {
-    possibleSeatIds.push(lastSeatId, seatIds[i]);
+for (const seatId of seatIds) {
+  if (seatId > lastSeatId + 1 && seatId >= 8) {
+    possibleSeatIds.push(lastSeatId, seatId);
   }
-  lastSeatId = seatIds[i];
+  lastSeatId = seatId;
 }
-console.log('The only seatIDs with noone between them are: ', possibleSeatIds);
+console.log('The only seatIDs with noone between them are:', possibleSeatIds);
 console.log('My seatIDs must be:', (possibleSeatIds[1] + possibleSeatIds[0]) / 2);
 //endregion

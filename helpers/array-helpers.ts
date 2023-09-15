@@ -1,18 +1,18 @@
-export const hasDuplicates = (array: (string | number | boolean)[]) => {
+export const hasDuplicates = (array: Array<string | number | boolean>) => {
   return new Set(array).size !== array.length;
 };
 
-export const getMaxNthValues = (arr: number[], n: number): number[] => {
-  if (arr.length <= n) {
-    return arr;
+export const getMaxNthValues = (array: Array<number>, n: number): Array<number> => {
+  if (array.length <= n) {
+    return array;
   }
-  const max = [arr[0], arr[1], arr[2]];
+  const max = [array[0], array[1], array[2]];
 
   max.sort((a, b) => a - b);
 
-  for (let i = n; i < arr.length; i++) {
-    if (arr[i] > max[0]) {
-      max[0] = arr[i];
+  for (let index = n; index < array.length; index++) {
+    if (array[index] > max[0]) {
+      max[0] = array[index];
       max.sort((a, b) => a - b);
     }
   }

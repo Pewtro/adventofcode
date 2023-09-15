@@ -1,19 +1,23 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 import { hasDuplicates } from '../../helpers';
+import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
-const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
+const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
 
-const findFirstUniqueNValues = (str: string, n: number) => {
-  const [firstN, remaining] = [str.slice(0, n).split(''), str.slice(n)];
+const findFirstUniqueNValues = (string_: string, n: number) => {
+  const firstNCharacters = string_.slice(0, n);
+  const firstNSplit = [...firstNCharacters];
+  const remaining = string_.slice(n);
 
-  for (let i = 0; i < remaining.length; i++) {
-    if (!hasDuplicates(firstN)) {
+  for (let index = 0; index < remaining.length; index++) {
+    if (!hasDuplicates(firstNSplit)) {
       //First marker identified
-      return i + n;
+      return index + n;
     }
-    firstN.shift();
-    firstN.push(remaining.charAt(i));
+    firstNSplit.shift();
+    firstNSplit.push(remaining.charAt(index));
   }
 };
 

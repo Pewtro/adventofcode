@@ -1,6 +1,13 @@
-import fs = require('fs');
+import fs from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 
-const file = fs.readFileSync('input.txt').toString().split('\n\n');
+const inputName = 'input';
+
+const file = fs
+  .readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`)
+  .toString()
+  .split('\n\n');
 
 //Since node.js doesn't support .replaceAll we make our own variant of it
 function replaceAll(string: string, search: string, replace: string) {
@@ -11,10 +18,10 @@ function replaceAll(string: string, search: string, replace: string) {
 let sumOfCount = 0;
 for (let travelGroup of file) {
   travelGroup = replaceAll(travelGroup, '\n', '');
-  const matchedLetters = [];
-  for (let i = 0; i < travelGroup.length; i++) {
-    if (!matchedLetters.includes(travelGroup[i])) {
-      matchedLetters.push(travelGroup[i]);
+  const matchedLetters: Array<string> = [];
+  for (const element of travelGroup) {
+    if (!matchedLetters.includes(element)) {
+      matchedLetters.push(element);
     }
   }
   sumOfCount += matchedLetters.length;
@@ -26,17 +33,17 @@ console.log(sumOfCount);
 let sumOfCount2 = 0;
 for (const travelGroup of file) {
   const peopleInGroup = travelGroup.split('\n');
-  const letterCount = {};
-  for (const idx in peopleInGroup) {
-    if (peopleInGroup[idx].length === 0) {
-      peopleInGroup.splice(parseInt(idx), 1);
+  const letterCount: Record<string, number> = {};
+  for (let index = 0; index < peopleInGroup.length; index++) {
+    if (peopleInGroup[index].length === 0) {
+      peopleInGroup.splice(index, 1);
       continue;
     }
-    for (let i = 0; i < peopleInGroup[idx].length; i++) {
-      if (letterCount[peopleInGroup[idx][i]]) {
-        letterCount[peopleInGroup[idx][i]] += 1;
+    for (const person of peopleInGroup[index]) {
+      if (letterCount[person]) {
+        letterCount[person] += 1;
       } else {
-        letterCount[peopleInGroup[idx][i]] = 1;
+        letterCount[person] = 1;
       }
     }
   }

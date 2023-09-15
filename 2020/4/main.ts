@@ -1,4 +1,4 @@
-import fs = require('fs');
+import fs from 'node:fs';
 
 const file = fs.readFileSync('input.txt').toString().split('\n\n');
 
@@ -15,10 +15,10 @@ const requiredFields = {
   hgt: function checkField(value: string) {
     const lastTwoChars = value.slice(-2);
     if (lastTwoChars === 'cm') {
-      const height = parseInt(value.slice(0, 3));
+      const height = Number.parseInt(value.slice(0, 3));
       return height >= 150 && height <= 193;
     } else if (lastTwoChars === 'in') {
-      const height = parseInt(value.slice(0, 2));
+      const height = Number.parseInt(value.slice(0, 2));
       return height >= 59 && height <= 76;
     } else {
       return false;
@@ -28,25 +28,22 @@ const requiredFields = {
     if (value.length !== 7) {
       return false;
     }
-    if (value.slice(0, 1) !== '#') {
+    if (!value.startsWith('#')) {
       return false;
     }
     const sixCharacters = value.slice(1, 7);
-    const regex = /[a-zA-Z\d]/g;
-    return sixCharacters.match(regex).length === 6;
+    const regex = /[\dA-Za-z]/g;
+    return sixCharacters.match(regex)?.length === 6;
   },
   ecl: function checkField(value: string) {
     const regex = /(amb|blu|brn|gry|grn|hzl|oth)/g;
-    return Boolean(value.match(regex));
+    return Boolean(regex.test(value));
   },
   pid: function checkField(value: string) {
-    if (isNaN(parseInt(value))) {
+    if (Number.isNaN(Number.parseInt(value))) {
       return false;
     }
-    if (value.length !== 9) {
-      return false;
-    }
-    return true;
+    return !(value.length !== 9);
   },
 };
 let validPassports = 0;
@@ -66,7 +63,7 @@ for (const possiblePassport of file) {
   }
 }
 
-console.log('Part 1 answer: ', validPassports);
+console.log('Part 1 answer:', validPassports);
 //endregion
 
 //region Part 2
@@ -83,21 +80,22 @@ for (const possiblePassport of passportsPart2) {
   //this gets rid of those to have clean data
   const splitPass = replaceAll(possiblePassport, '\n', ' ').split(' ');
 
-  splitPass.forEach((field) => {
+  for (const field of splitPass) {
     const splitField = field.split(':');
     const fieldName = splitField[0];
     if (fieldName === 'cid') {
-      return;
+      continue;
     }
     const fieldInfo = splitField[1];
-    if (requiredFields[fieldName](fieldInfo)) {
+    const function_ = requiredFields[fieldName as keyof typeof requiredFields];
+    if (function_(fieldInfo as never)) {
       validatedFields += 1;
     }
-  });
+  }
   if (validatedFields === rulesToValidate) {
     validPassportsPart2 += 1;
   }
 }
 
-console.log('Part 2 answer: ', validPassportsPart2);
+console.log('Part 2 answer:', validPassportsPart2);
 //endregion

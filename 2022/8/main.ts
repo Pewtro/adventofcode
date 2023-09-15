@@ -1,23 +1,24 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
-const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
+const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
 
-const treeGrid: number[][] = [];
+const treeGrid: Array<Array<number>> = [];
 const visibleTrees = new Set<string>();
 
 const lines = input.split('\n');
 
-lines.forEach((line) => treeGrid.push(line.split('').map(Number)));
+for (const line of lines) treeGrid.push([...line].map(Number));
 
 //Check for visible trees on the x axis
-for (let y = 0; y < treeGrid.length; y++) {
-  const currentRow = treeGrid[y];
+for (const [y, currentRow] of treeGrid.entries()) {
   let max = -1;
   //Check for visible trees from left to right
-  for (let x = 0; x < currentRow.length; x++) {
-    if (currentRow[x] > max) {
-      max = currentRow[x];
+  for (const [x, element] of currentRow.entries()) {
+    if (element > max) {
+      max = element;
       visibleTrees.add(`${x},${y}`);
     }
   }
@@ -36,9 +37,9 @@ for (let y = 0; y < treeGrid.length; y++) {
 for (let x = 0; x < treeGrid[0].length; x++) {
   //Check for visible trees from top to bottom
   let max = -1;
-  for (let y = 0; y < treeGrid.length; y++) {
-    if (treeGrid[y][x] > max) {
-      max = treeGrid[y][x];
+  for (const [y, element] of treeGrid.entries()) {
+    if (element[x] > max) {
+      max = element[x];
       visibleTrees.add(`${x},${y}`);
     }
   }
@@ -53,14 +54,15 @@ for (let x = 0; x < treeGrid[0].length; x++) {
   }
 }
 
-console.log('Visible trees: ', visibleTrees.size);
+console.log('Visible trees:', visibleTrees.size);
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 const calculateTreeViewScore = (x: number, y: number): number => {
   const treeHeight = treeGrid[y][x];
 
   let treesVisibleTop = 0;
-  for (let i = y - 1; i >= 0; i--) {
-    if (treeHeight > treeGrid[i][x]) {
+  for (let index = y - 1; index >= 0; index--) {
+    if (treeHeight > treeGrid[index][x]) {
       treesVisibleTop++;
     } else {
       treesVisibleTop++;
@@ -68,8 +70,8 @@ const calculateTreeViewScore = (x: number, y: number): number => {
     }
   }
   let treesVisibleBottom = 0;
-  for (let i = y + 1; i < treeGrid.length; i++) {
-    if (treeHeight > treeGrid[i][x]) {
+  for (let index = y + 1; index < treeGrid.length; index++) {
+    if (treeHeight > treeGrid[index][x]) {
       treesVisibleBottom++;
     } else {
       treesVisibleBottom++;
@@ -77,8 +79,8 @@ const calculateTreeViewScore = (x: number, y: number): number => {
     }
   }
   let treesVisibleLeft = 0;
-  for (let i = x - 1; i >= 0; i--) {
-    if (treeHeight > treeGrid[y][i]) {
+  for (let index = x - 1; index >= 0; index--) {
+    if (treeHeight > treeGrid[y][index]) {
       treesVisibleLeft++;
     } else {
       treesVisibleLeft++;
@@ -86,8 +88,8 @@ const calculateTreeViewScore = (x: number, y: number): number => {
     }
   }
   let treesVisibleRight = 0;
-  for (let i = x + 1; i < treeGrid[y].length; i++) {
-    if (treeHeight > treeGrid[y][i]) {
+  for (let index = x + 1; index < treeGrid[y].length; index++) {
+    if (treeHeight > treeGrid[y][index]) {
       treesVisibleRight++;
     } else {
       treesVisibleRight++;
@@ -101,8 +103,8 @@ const calculateTreeViewScore = (x: number, y: number): number => {
 //Loop through each tree and calculate their score
 let maxTreeViewScore = 0;
 
-for (let y = 0; y < treeGrid.length; y++) {
-  for (let x = 0; x < treeGrid[y].length; x++) {
+for (const [y, element] of treeGrid.entries()) {
+  for (let x = 0; x < element.length; x++) {
     if (visibleTrees.has(`${x},${y}`)) {
       const score = calculateTreeViewScore(x, y);
       if (score > maxTreeViewScore) {
@@ -112,4 +114,4 @@ for (let y = 0; y < treeGrid.length; y++) {
   }
 }
 
-console.log('Max tree view score: ', maxTreeViewScore);
+console.log('Max tree view score:', maxTreeViewScore);

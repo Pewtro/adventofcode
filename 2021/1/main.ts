@@ -1,5 +1,6 @@
-import * as readline from 'readline';
-import { stdin, stdout } from 'process';
+#!/usr/bin/env node
+import * as readline from 'node:readline';
+import { stdin, stdout } from 'node:process';
 
 //Hack to avoid error #donthate
 const rl = readline.createInterface(
@@ -20,66 +21,57 @@ const caseTracker = {
   },
 };
 
+let lineCount = 0;
+let previousLineValue = 0;
+let previousThreeSumValue = 0;
+const threeSumArray: [number, number, number] = [0, 0, 0];
+
 const lineTracker = {
-  prevLineVal: null,
-  set(newVal: number) {
-    this.prevLineVal = newVal;
+  set(newValue: number) {
+    previousLineValue = newValue;
   },
-  lineCount: 0,
   getLineCount() {
     this.incLineCount();
-    return this.lineCount;
+    return lineCount;
   },
   incLineCount() {
-    this.lineCount += 1;
+    lineCount += 1;
   },
-  prevThreeSumVal: null,
-  threeSumArr: [null, null, null],
   calc() {
-    debug &&
-      console.log(
-        'sum',
-        this.sum(),
-        'prevThreeSumVal',
-        this.prevThreeSumVal,
-        this.sum() > this.prevThreeSumVal,
-      );
-    return this.sum() > this.prevThreeSumVal;
+    const valueToCheck = previousThreeSumValue ?? 0;
+    debug && console.log('sum', this.sum(), 'prevThreeSumVal', previousThreeSumValue, this.sum() > valueToCheck);
+    return this.sum() > valueToCheck;
   },
-  shift(newVal: number) {
-    this.prevThreeSumVal = this.sum();
-    this.threeSumArr.shift();
-    this.threeSumArr.push(newVal);
+  shift(newValue: number) {
+    previousThreeSumValue = this.sum();
+    threeSumArray.shift();
+    threeSumArray.push(newValue);
   },
-  sum() {
-    return this.threeSumArr.reduce((a, b) => a + b, 0);
+  sum(): number {
+    return threeSumArray.reduce((total, value) => (total ?? 0) + (value ?? 0), 0);
   },
 };
 
 //Solver that executes on a line by line basis
 rl.on('line', function (line) {
   //Ensure current line is a number
-  const lineVal = parseInt(line);
+  const lineValue = Number.parseInt(line);
 
   //Part one
-  if (lineTracker.prevLineVal) {
-    if (lineVal > lineTracker.prevLineVal) {
-      caseTracker.inc();
-    }
+  if (previousLineValue && lineValue > previousLineValue) {
+    caseTracker.inc();
   }
-  lineTracker.set(lineVal);
+  lineTracker.set(lineValue);
 
   //Part two
-  lineTracker.shift(lineVal);
-  if (lineTracker.getLineCount() >= 4) {
-    if (lineTracker.calc()) {
-      caseTracker.threeSumInc();
-    }
+  lineTracker.shift(lineValue);
+  if (lineTracker.getLineCount() >= 4 && lineTracker.calc()) {
+    caseTracker.threeSumInc();
   }
 }).on('close', function () {
   //Throw out result
-  console.log('Part one increments: ', caseTracker.count);
-  console.log('Part two increments: ', caseTracker.threeSumCount);
+  console.log('Part one increments:', caseTracker.count);
+  console.log('Part two increments:', caseTracker.threeSumCount);
   //exit with code 0
   process.exit(0);
 });

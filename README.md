@@ -2,7 +2,7 @@
 
 ## Usage
 
-Run `yarn nodemon ./runner.ts YEAR DAY`, e.g. `yarn nodemon ./runner.ts 2021 1` to execute the main.ts file inside 2021/1.
+Run `yarn watch ./runner.ts YEAR DAY`, e.g. `yarn watch ./runner.ts 2021 1` to execute the main.ts file inside 2021/1.
 
 ---
 

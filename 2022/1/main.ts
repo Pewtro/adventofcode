@@ -1,25 +1,21 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 import { getMaxNthValues } from '../../helpers';
+import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
-const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
+const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
 
 const amountsCarried = input
   .split('\n\n')
   .filter((untrimmed) => untrimmed.trim().length > 0)
-  .map((val) =>
-    val
+  .map((value) =>
+    value
       .split('\n')
-      .map((e) => parseInt(e))
+      .map((amount) => Number.parseInt(amount))
       .reduce((a, b) => a + b),
   );
-const highestAmount = amountsCarried.reduce((a, b) => {
-  if (b > a) {
-    return b;
-  } else {
-    return a;
-  }
-});
+const highestAmount = Math.max(...amountsCarried);
 
 console.log('------------ PART ONE ------------');
 console.log('The highest single amount is:', highestAmount);

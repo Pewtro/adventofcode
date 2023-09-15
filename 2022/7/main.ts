@@ -1,87 +1,85 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
-const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
+const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
 
 const lines = input.split('\n');
 
-type File = {
+interface File {
   type: 'file';
   name: string;
   size: number;
-};
+}
 
-type Folder = {
+interface Folder {
   type: 'folder';
   name: string;
-  children: { [folderOrFileName: string]: File | Folder };
-  parent: Folder | null;
+  children: Record<string, File | Folder>;
+  parent?: Folder;
   size: number;
-};
+}
 
 const rootFolder: Folder = {
   type: 'folder',
   name: '/',
   children: {},
   size: 0,
-  parent: null,
+  parent: undefined,
 };
 
-let currentDir: Folder = rootFolder;
+let currentDirectory: Folder = rootFolder;
 
-lines.forEach((line) => {
-  const [sizeOrDir, command, args] = line.split(' ');
+for (const line of lines) {
+  const [sizeOrDirectory, command, arguments_] = line.split(' ');
 
   if (command === 'cd') {
-    if (args === '..') {
-      if (currentDir.parent !== null) {
-        currentDir = currentDir.parent;
+    if (arguments_ === '..') {
+      if (currentDirectory.parent) {
+        currentDirectory = currentDirectory.parent;
       }
-    } else if (args === '/') {
-      currentDir = rootFolder;
+    } else if (arguments_ === '/') {
+      currentDirectory = rootFolder;
     } else {
-      currentDir = currentDir.children[args] as Folder;
+      currentDirectory = currentDirectory.children[arguments_] as Folder;
     }
-    return;
+    continue;
   }
 
-  if (sizeOrDir.startsWith('$')) {
-    return;
+  if (sizeOrDirectory.startsWith('$')) {
+    continue;
   }
 
-  if (sizeOrDir === 'dir') {
+  if (sizeOrDirectory === 'dir') {
     const folderName = command;
     const newFolder: Folder = {
       type: 'folder',
       name: folderName,
       children: {},
       size: 0,
-      parent: currentDir,
+      parent: currentDirectory,
     };
-    currentDir.children[folderName] = newFolder;
+    currentDirectory.children[folderName] = newFolder;
   } else {
     const fileName = command;
-    const fileSize = parseInt(sizeOrDir);
+    const fileSize = Number.parseInt(sizeOrDirectory);
     const newFile: File = {
       type: 'file',
       name: fileName,
       size: fileSize,
     };
-    currentDir.children[fileName] = newFile;
-    currentDir.size += fileSize;
+    currentDirectory.children[fileName] = newFile;
+    currentDirectory.size += fileSize;
   }
-});
+}
 
-const folderSizes: number[] = [];
+const folderSizes: Array<number> = [];
 
 const calculateFolderSize = (folder: Folder): number => {
   let size = 0;
   for (const child of Object.values(folder.children)) {
-    if (child.type === 'file') {
-      size += child.size;
-    } else {
-      size += calculateFolderSize(child);
-    }
+    size += child.type === 'file' ? child.size : calculateFolderSize(child);
   }
 
   folder.size = size;
@@ -93,7 +91,7 @@ const part1 = () => {
   calculateFolderSize(rootFolder);
   console.log(
     'Part 1:',
-    folderSizes.filter((size) => size <= 100000).reduce((a, b) => a + b, 0),
+    folderSizes.filter((size) => size <= 100_000).reduce((a, b) => a + b, 0),
   );
 };
 
@@ -101,8 +99,8 @@ const part2 = () => {
   if (folderSizes.length === 0) {
     calculateFolderSize(rootFolder);
   }
-  const fsSize = 70000000;
-  const sizeRequiredForUpdate = 30000000;
+  const fsSize = 70_000_000;
+  const sizeRequiredForUpdate = 30_000_000;
   const spaceAvailable = fsSize - rootFolder.size;
   const spaceRequired = sizeRequiredForUpdate - spaceAvailable;
 

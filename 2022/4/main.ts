@@ -1,19 +1,21 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
-const input = readFileSync(`${__dirname}/tests/${inputName}.in`).toString();
+const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
 
-const pairs = input.split('\n').map((val) => val.split(','));
+const pairs = input.split('\n').map((value) => value.split(','));
 
 //part one
 let assignmentPairsToReconsider = 0;
 //part two
 let hasAnyOverlaps = 0;
 
-pairs.forEach((pair) => {
+for (const pair of pairs) {
   const [elf1, elf2] = pair;
-  const [elf1lower, elf1upper] = elf1.split('-').flatMap((val) => [parseInt(val)]);
-  const [elf2lower, elf2upper] = elf2.split('-').flatMap((val) => [parseInt(val)]);
+  const [elf1lower, elf1upper] = elf1.split('-').flatMap((value) => [Number.parseInt(value)]);
+  const [elf2lower, elf2upper] = elf2.split('-').flatMap((value) => [Number.parseInt(value)]);
 
   const isElf1ContainedInElf2 = elf1lower >= elf2lower && elf1upper <= elf2upper;
   const isElf2ContainedInElf1 = elf2lower >= elf1lower && elf2upper <= elf1upper;
@@ -28,7 +30,7 @@ pairs.forEach((pair) => {
   if (Elf1OverlapWithElf2 || Elf2OverlapWithElf2) {
     hasAnyOverlaps += 1;
   }
-});
+}
 
 console.log('------------ PART ONE ------------');
 console.log(`Assignment pairs to reconsider: ${assignmentPairsToReconsider}`);
