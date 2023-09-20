@@ -3,8 +3,8 @@
   "type": "module",
   "devDependencies": {
     "@putstack/eslint-config-typescript": "1.1.0",
-    "@putstack/prettier-config": "1.1.0",
-    "@types/node": "20.6.2",
+    "@putstack/prettier-config": "1.2.2",
+    "@types/node": "20.6.3",
     "concurrently": "8.2.1",
     "eslint": "8.49.0",
     "husky": "8.0.3",
@@ -23,7 +23,7 @@
     "typecheck": "tsc"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx,md,mdx,yml}": [
+    "*.{ts,tsx,js,jsx,md,mdx,yml,yaml}": [
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
