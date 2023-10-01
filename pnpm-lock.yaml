@@ -12,8 +12,8 @@ devDependencies:
     specifier: 1.2.2
     version: 1.2.2(prettier@3.0.3)
   '@types/node':
-    specifier: 20.7.1
-    version: 20.7.1
+    specifier: 20.8.0
+    version: 20.8.0
   concurrently:
     specifier: 8.2.1
     version: 8.2.1
@@ -416,9 +416,9 @@ packages:
       { integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA== }
     dev: true
 
-  /@types/node@20.7.1:
+  /@types/node@20.8.0:
     resolution:
-      { integrity: sha512-LT+OIXpp2kj4E2S/p91BMe+VgGX2+lfO+XTpfXhh+bCk2LkQtHZSub8ewFBMGP5ClysPjTDFa4sMI8Q3n4T0wg== }
+      { integrity: sha512-LzcWltT83s1bthcvjBmiBvGJiiUe84NWRHkw+ZV6Fr41z2FbIzvc815dk2nQ3RAKMuN2fkenM/z3Xv2QzEpYxQ== }
     dev: true
 
   /@types/normalize-package-data@2.4.1:
