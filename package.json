@@ -7,13 +7,13 @@
   "devDependencies": {
     "@putstack/eslint-config-typescript": "1.1.2",
     "@putstack/prettier-config": "1.2.2",
-    "@types/node": "20.8.6",
-    "concurrently": "8.2.1",
-    "eslint": "8.51.0",
+    "@types/node": "20.8.8",
+    "concurrently": "8.2.2",
+    "eslint": "8.52.0",
     "husky": "8.0.3",
-    "lint-staged": "15.0.1",
+    "lint-staged": "15.0.2",
     "prettier": "3.0.3",
-    "tsx": "3.13.0",
+    "tsx": "3.14.0",
     "typescript": "5.2.2"
   },
   "scripts": {
