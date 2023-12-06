@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { hasDuplicates } from '../../helpers';
+import { hasDuplicates } from '../../helpers/array-helpers.js';
 import path from 'node:path';
 import url from 'node:url';
 

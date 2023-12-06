@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { getMaxNthValues } from '../../helpers';
+import { getMaxNthValues } from '../../helpers/array-helpers.js';
 import path from 'node:path';
 import url from 'node:url';
 

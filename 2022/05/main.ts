@@ -9,11 +9,18 @@ const [rawStacks, instructions] = input.split('\n\n');
 
 const getStacks = () => {
   const stacks: Array<Array<string>> = [[]];
+  if (!rawStacks) {
+    return stacks;
+  }
   for (const stack of rawStacks.split('\n')) {
     for (let index = 1; index < stack.length; index += 4) {
       if (stack[index] !== ' ') {
-        stacks[(index - 1) / 4] = stacks[(index - 1) / 4] || [];
-        stacks[(index - 1) / 4].push(stack[index]);
+        const temporaryStacksArray = stacks[(index - 1) / 4] ?? [];
+        const currentStack = stack[index];
+        if (currentStack) {
+          temporaryStacksArray.push(currentStack);
+        }
+        stacks[(index - 1) / 4] = temporaryStacksArray;
       }
     }
   }
@@ -29,18 +36,27 @@ const getCratesOnTop = (functionStacks: Array<Array<string>>) => {
 const part1Stacks = getStacks();
 const part2Stacks = getStacks();
 
-for (const instruction of instructions.split('\n')) {
-  const [amount, from, to] = instruction
-    .split(/[A-Za-z]+/)
-    .flatMap((value) => (value.trim().length > 0 ? [Number.parseInt(value.trim())] : []));
+if (instructions) {
+  for (const instruction of instructions.split('\n')) {
+    const [amount, from, to] = instruction
+      .split(/[A-Za-z]+/)
+      .flatMap((value) => (value.trim().length > 0 ? [Number.parseInt(value.trim())] : []));
 
-  const moveItemsPart1 = part1Stacks[from - 1].splice(0, amount).reverse();
-  part1Stacks[to - 1].unshift(...moveItemsPart1);
+    if (to && from) {
+      const moveItemsPart1 = part1Stacks[from - 1]?.splice(0, amount).reverse();
+      const previousPart1Stacks = part1Stacks[to - 1];
+      if (moveItemsPart1 && previousPart1Stacks) {
+        previousPart1Stacks.unshift(...moveItemsPart1);
+      }
 
-  const moveItemsPart2 = part2Stacks[from - 1].splice(0, amount);
-  part2Stacks[to - 1].unshift(...moveItemsPart2);
+      const moveItemsPart2 = part2Stacks[from - 1]?.splice(0, amount);
+      const previousPart2Stacks = part2Stacks[to - 1];
+      if (moveItemsPart2 && previousPart2Stacks) {
+        previousPart2Stacks.unshift(...moveItemsPart2);
+      }
+    }
+  }
 }
-
 console.log('------------ PART ONE ------------');
 console.log('Crates on top', getCratesOnTop(part1Stacks));
 
