@@ -31,7 +31,7 @@ if (scriptName && year && day) {
         const child = exec(`tsx ${watchValue} ${target}`);
         // prepare the encoding and pipe
         child.stdin?.setDefaultEncoding('utf8');
-        child.stdout?.pipe(process.stdout as unknown as NodeJS.WritableStream);
+        child.stdout?.pipe(process.stdout);
         // write the actual data
         child.stdin?.write(tests);
         // measure memory
