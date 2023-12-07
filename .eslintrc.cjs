@@ -5,5 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json'],
   },
-  rules: {},
+  rules: {
+    'sonarjs/cognitive-complexity': ['error', 25],
+  },
 };

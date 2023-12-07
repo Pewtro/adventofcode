@@ -2,7 +2,13 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 
-const inputName = 'example';
-const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
+const solve = (fileName: 'example' | 'input') => {
+  const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${fileName}.in`).toString();
 
-console.log(input);
+  console.log(input);
+};
+
+console.log('Solve example:');
+solve('example');
+//console.log('\nSolve input:');
+//solve('input');
