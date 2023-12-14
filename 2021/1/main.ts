@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import * as readline from 'node:readline';
 import { stdin, stdout } from 'node:process';
+import * as readline from 'node:readline';
 
 //Hack to avoid error #donthate
 const rl = readline.createInterface(

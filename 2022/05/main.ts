@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import url from 'node:url';
 import path from 'node:path';
+import url from 'node:url';
 
 const inputName = 'input';
 const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();

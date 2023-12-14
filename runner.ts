@@ -1,6 +1,6 @@
+import { exec } from 'node:child_process';
 import * as fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
-import { exec } from 'node:child_process';
 
 const [
   year,

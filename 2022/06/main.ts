@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
-import { hasDuplicates } from '../../helpers/array-helpers.js';
 import path from 'node:path';
 import url from 'node:url';
+import { hasDuplicates } from '../../helpers/array-helpers.js';
 
 const inputName = 'input';
 const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${inputName}.in`).toString();
