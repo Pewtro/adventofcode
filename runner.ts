@@ -11,17 +11,20 @@ const [
   extension = 'ts',
   testExtension = 'in',
 ] = process.argv.slice(2);
-const testPath = `${year}/${day}/tests/${testName}.${testExtension}`;
-const target = `${year}/${day}/${scriptName}.${extension}`;
 const expectedScriptName = `${scriptName}.${extension}`;
 
 // given the file name, year and day
 if (scriptName && year && day) {
+  const paddedYear = year.length === 2 ? `20${year}` : year;
+  const paddedDay = day.length === 1 ? `0${day}` : day;
+  const testPath = `${paddedYear}/${paddedDay}/tests/${testName}.${testExtension}`;
+  const target = `${paddedYear}/${paddedDay}/${scriptName}.${extension}`;
+
   fs.readFile(testPath, 'utf8', (error, tests) => {
-    if (error) return console.log('Test file not found', error);
+    if (error) return console.log('Test file not found\n', error);
 
     // check if year/day is a thing
-    fs.readdir(`${year}/${day}`, (error_, files) => {
+    fs.readdir(`${paddedYear}/${paddedDay}`, (error_, files) => {
       if (error_) return console.log('Did you transpile?', error_);
       // check if the build has the expected script name
       if (files.includes(expectedScriptName)) {
