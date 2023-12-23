@@ -1,14 +1,15 @@
-import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
+import { readLines } from '../helpers/common.js';
 
-const solve = (fileName: 'example' | 'input') => {
-  const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${fileName}.in`).toString();
+const exampleMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'example');
+const inputMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'input');
 
-  console.log(input);
+const solve = (map: Array<string>) => {
+  console.log('map', map);
 };
 
 console.log('Solve example:');
-solve('example');
-//console.log('\nSolve input:');
-//solve('input');
+solve(exampleMap);
+console.log('\nSolve input:');
+solve(inputMap);
