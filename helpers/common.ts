@@ -5,7 +5,7 @@ export const readFile = (folderPath: string, filename: 'example' | 'input'): str
 };
 
 export const readLines = (folderPath: string, filename: 'example' | 'input'): Array<string> => {
-  const input = readFile(`${folderPath}/tests/${filename}.in`, filename);
+  const input = readFileSync(`${folderPath}/tests/${filename}.in`).toString();
 
   return input.split('\n');
 };
