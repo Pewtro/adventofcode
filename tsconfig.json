@@ -3,7 +3,7 @@
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "es2022",
+    "target": "ESNext",
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
@@ -20,7 +20,7 @@
 
     "noEmit": true,
     /* Not running in the DOM */
-    "lib": ["es2022"]
+    "lib": ["ESNext"]
   },
   "include": ["**/*.*ts", "**/*.*js"]
 }
