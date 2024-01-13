@@ -6,20 +6,14 @@ settings:
 
 devDependencies:
   '@putstack/eslint-config-typescript':
-    specifier: 2.1.0
-    version: 2.1.0(@typescript-eslint/eslint-plugin@6.18.1)(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
+    specifier: 2.2.0
+    version: 2.2.0(eslint@8.56.0)(typescript@5.3.3)
   '@putstack/prettier-config':
     specifier: 1.4.0
     version: 1.4.0(prettier@3.2.1)
   '@types/node':
     specifier: 20.11.0
     version: 20.11.0
-  '@typescript-eslint/eslint-plugin':
-    specifier: 6.18.1
-    version: 6.18.1(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3)
-  '@typescript-eslint/parser':
-    specifier: 6.18.1
-    version: 6.18.1(eslint@8.56.0)(typescript@5.3.3)
   concurrently:
     specifier: 8.2.2
     version: 8.2.2
@@ -400,12 +394,10 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@putstack/eslint-config-typescript@2.1.0(@typescript-eslint/eslint-plugin@6.18.1)(@typescript-eslint/parser@6.18.1)(eslint@8.56.0)(typescript@5.3.3):
+  /@putstack/eslint-config-typescript@2.2.0(eslint@8.56.0)(typescript@5.3.3):
     resolution:
-      { integrity: sha512-0LAzOfMv6PiRmURyRhG1DK8qbd3ziA75/lkHOKbKRHBHYCZS8y2KXgymfxiG0QV79si7xCUxjrBaawTZ/aJJ1Q== }
+      { integrity: sha512-23fj0ES3ux7sn12ERGCYBZuFuNM/qbRFNYvmYR2G18DsdEm3lZg81fuF17CWZJ4kpnJTn7u1sfVKz636OeKHhQ== }
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': '>=6'
-      '@typescript-eslint/parser': '>=6'
       eslint: '>=8'
       typescript: '>=5'
     dependencies:
