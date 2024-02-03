@@ -42,17 +42,20 @@ for (const line of lines) {
     } else if (arguments_ === '/') {
       currentDirectory = rootFolder;
     } else {
+      if (!arguments_) {
+        continue;
+      }
       currentDirectory = currentDirectory.children[arguments_] as Folder;
     }
     continue;
   }
 
-  if (sizeOrDirectory.startsWith('$')) {
+  if (sizeOrDirectory?.startsWith('$')) {
     continue;
   }
 
   if (sizeOrDirectory === 'dir') {
-    const folderName = command;
+    const folderName = command ?? '';
     const newFolder: Folder = {
       type: 'folder',
       name: folderName,
@@ -62,8 +65,8 @@ for (const line of lines) {
     };
     currentDirectory.children[folderName] = newFolder;
   } else {
-    const fileName = command;
-    const fileSize = Number.parseInt(sizeOrDirectory);
+    const fileName = command ?? '';
+    const fileSize = Number.parseInt(sizeOrDirectory!);
     const newFile: File = {
       type: 'file',
       name: fileName,

@@ -26,20 +26,20 @@ for (const [y, currentRow] of treeGrid.entries()) {
   //Check for back visible trees from right to left
   max = -1;
   for (let x = currentRow.length - 1; x >= 0; x--) {
-    if (currentRow[x] > max) {
-      max = currentRow[x];
+    if (currentRow[x]! > max) {
+      max = currentRow[x]!;
       visibleTrees.add(`${x},${y}`);
     }
   }
 }
 
 //Check for visible trees on the y axis
-for (let x = 0; x < treeGrid[0].length; x++) {
+for (let x = 0; x < treeGrid[0]!.length; x++) {
   //Check for visible trees from top to bottom
   let max = -1;
   for (const [y, element] of treeGrid.entries()) {
-    if (element[x] > max) {
-      max = element[x];
+    if (element[x]! > max) {
+      max = element[x]!;
       visibleTrees.add(`${x},${y}`);
     }
   }
@@ -47,8 +47,8 @@ for (let x = 0; x < treeGrid[0].length; x++) {
   max = -1;
   //Check for visible trees from bottom to top
   for (let y = treeGrid.length - 1; y >= 0; y--) {
-    if (treeGrid[y][x] > max) {
-      max = treeGrid[y][x];
+    if (treeGrid[y]![x]! > max) {
+      max = treeGrid[y]![x]!;
       visibleTrees.add(`${x},${y}`);
     }
   }
@@ -58,11 +58,11 @@ console.log('Visible trees:', visibleTrees.size);
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const calculateTreeViewScore = (x: number, y: number): number => {
-  const treeHeight = treeGrid[y][x];
+  const treeHeight = treeGrid[y]![x]!;
 
   let treesVisibleTop = 0;
   for (let index = y - 1; index >= 0; index--) {
-    if (treeHeight > treeGrid[index][x]) {
+    if (treeHeight > treeGrid[index]![x]!) {
       treesVisibleTop++;
     } else {
       treesVisibleTop++;
@@ -71,7 +71,7 @@ const calculateTreeViewScore = (x: number, y: number): number => {
   }
   let treesVisibleBottom = 0;
   for (let index = y + 1; index < treeGrid.length; index++) {
-    if (treeHeight > treeGrid[index][x]) {
+    if (treeHeight > treeGrid[index]![x]!) {
       treesVisibleBottom++;
     } else {
       treesVisibleBottom++;
@@ -80,7 +80,7 @@ const calculateTreeViewScore = (x: number, y: number): number => {
   }
   let treesVisibleLeft = 0;
   for (let index = x - 1; index >= 0; index--) {
-    if (treeHeight > treeGrid[y][index]) {
+    if (treeHeight > treeGrid[y]![index]!) {
       treesVisibleLeft++;
     } else {
       treesVisibleLeft++;
@@ -88,8 +88,8 @@ const calculateTreeViewScore = (x: number, y: number): number => {
     }
   }
   let treesVisibleRight = 0;
-  for (let index = x + 1; index < treeGrid[y].length; index++) {
-    if (treeHeight > treeGrid[y][index]) {
+  for (let index = x + 1; index < treeGrid[y]!.length; index++) {
+    if (treeHeight > treeGrid[y]![index]!) {
       treesVisibleRight++;
     } else {
       treesVisibleRight++;

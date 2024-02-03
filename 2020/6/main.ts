@@ -35,11 +35,11 @@ for (const travelGroup of file) {
   const peopleInGroup = travelGroup.split('\n');
   const letterCount: Record<string, number> = {};
   for (let index = 0; index < peopleInGroup.length; index++) {
-    if (peopleInGroup[index].length === 0) {
+    if (peopleInGroup[index]?.length === 0) {
       peopleInGroup.splice(index, 1);
       continue;
     }
-    for (const person of peopleInGroup[index]) {
+    for (const person of peopleInGroup[index]!) {
       if (letterCount[person]) {
         letterCount[person] += 1;
       } else {

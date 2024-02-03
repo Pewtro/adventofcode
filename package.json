@@ -7,11 +7,11 @@
   "devDependencies": {
     "@putstack/eslint-config-typescript": "2.2.0",
     "@putstack/prettier-config": "1.4.0",
-    "@types/node": "20.11.9",
-    "concurrently": "8.2.2",
+    "@types/node": "20.11.16",
     "eslint": "8.56.0",
-    "husky": "9.0.6",
-    "lint-staged": "15.2.0",
+    "husky": "9.0.10",
+    "npm-run-all2": "6.1.2",
+    "lint-staged": "15.2.1",
     "prettier": "3.2.4",
     "tsx": "4.7.0",
     "typescript": "5.3.3"
@@ -19,9 +19,9 @@
   "scripts": {
     "lint": "eslint --format stylish --max-warnings 0 --cache .",
     "lint:fix": "pnpm lint --fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "stylecheck": "prettier --check .",
-    "test:ci": "concurrently \"pnpm:lint\" \"pnpm:typecheck\" \"pnpm:stylecheck\" ",
+    "test:ci": "npm-run-all -p -l lint typecheck stylecheck",
     "typecheck": "tsc"
   },
   "lint-staged": {

@@ -8,7 +8,7 @@ const debugInput = false;
 const debugGeneral = false;
 
 const guesses: Array<number> = input
-  .split('\n')[0]
+  .split('\n')[0]!
   .trim()
   .split(',')
   .map((guess) => Number.parseInt(guess));
@@ -33,10 +33,10 @@ debugInput && console.log(boards);
 
 const checkColumns = (board: Board) => {
   let hasWinner = false;
-  for (let index = 0; index < board[0].length; index++) {
+  for (let index = 0; index < board[0]!.length; index++) {
     const columnValues: Array<number> = [];
     for (const row of board) {
-      columnValues.push(row[index]);
+      columnValues.push(row[index]!);
     }
 
     if (columnValues.filter((value) => value === -1).length === columnValues.length) {

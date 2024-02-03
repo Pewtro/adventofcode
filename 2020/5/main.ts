@@ -65,5 +65,7 @@ for (const seatId of seatIds) {
   lastSeatId = seatId;
 }
 console.log('The only seatIDs with noone between them are:', possibleSeatIds);
-console.log('My seatIDs must be:', (possibleSeatIds[1] + possibleSeatIds[0]) / 2);
+const first = possibleSeatIds.at(0) ?? 0;
+const second = possibleSeatIds.at(1) ?? 0;
+console.log('My seatIDs must be:', (first + second) / 2);
 //endregion

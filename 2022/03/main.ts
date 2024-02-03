@@ -49,7 +49,10 @@ for (const [index, rucksack] of rucksacks.entries()) {
       if (checkedValues.includes(char)) {
         continue;
       }
-      if (groupedRucksacks[0].includes(char) && groupedRucksacks[1].includes(char)) {
+      const first = groupedRucksacks.at(0) ?? '';
+      const second = groupedRucksacks.at(1) ?? '';
+
+      if (first.includes(char) && second.includes(char)) {
         summedPrioritiesBadges += getCharacterValue(char);
       }
       checkedValues.push(char);

@@ -14,8 +14,15 @@ let hasAnyOverlaps = 0;
 
 for (const pair of pairs) {
   const [elf1, elf2] = pair;
+  if (!elf1 || !elf2) {
+    continue;
+  }
   const [elf1lower, elf1upper] = elf1.split('-').flatMap((value) => [Number.parseInt(value)]);
   const [elf2lower, elf2upper] = elf2.split('-').flatMap((value) => [Number.parseInt(value)]);
+
+  if (!elf1lower || !elf1upper || !elf2lower || !elf2upper) {
+    continue;
+  }
 
   const isElf1ContainedInElf2 = elf1lower >= elf2lower && elf1upper <= elf2upper;
   const isElf2ContainedInElf1 = elf2lower >= elf1lower && elf2upper <= elf1upper;

@@ -13,13 +13,21 @@ const entryArray = fs
   .split('\n');
 
 for (const index of entryArray) {
-  const firstNumber = Number.parseInt(entryArray[Number.parseInt(index)]);
+  const firstValue = entryArray[Number.parseInt(index)];
+  if (!firstValue) {
+    break;
+  }
+  const firstNumber = Number.parseInt(firstValue);
   if (!firstNumber) {
     break;
   }
 
   for (const innerIndex of entryArray) {
-    const secondNumber = Number.parseInt(entryArray[Number.parseInt(innerIndex)]);
+    const secondValue = entryArray[Number.parseInt(innerIndex)];
+    if (!secondValue) {
+      break;
+    }
+    const secondNumber = Number.parseInt(secondValue);
 
     if (firstNumber + secondNumber === goal && !printed) {
       //console.log(firstNumber, secondNumber, thirdNumber, (firstNumber + secondNumber + thirdNumber))
@@ -28,7 +36,11 @@ for (const index of entryArray) {
     }
 
     for (const k of entryArray) {
-      const thirdNumber = Number.parseInt(entryArray[Number.parseInt(k)]);
+      const thirdValue = entryArray[Number.parseInt(k)];
+      if (!thirdValue) {
+        break;
+      }
+      const thirdNumber = Number.parseInt(thirdValue);
       if (firstNumber + secondNumber + thirdNumber === goal && !printed2) {
         //console.log(firstNumber, secondNumber, thirdNumber, (firstNumber + secondNumber + thirdNumber))
         console.log(firstNumber * secondNumber * thirdNumber);
