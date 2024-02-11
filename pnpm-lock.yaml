@@ -10,10 +10,10 @@ devDependencies:
     version: 2.2.0(eslint@8.56.0)(typescript@5.3.3)
   '@putstack/prettier-config':
     specifier: 1.4.0
-    version: 1.4.0(prettier@3.2.4)
+    version: 1.4.0(prettier@3.2.5)
   '@types/node':
-    specifier: 20.11.16
-    version: 20.11.16
+    specifier: 20.11.17
+    version: 20.11.17
   eslint:
     specifier: 8.56.0
     version: 8.56.0
@@ -21,17 +21,17 @@ devDependencies:
     specifier: 9.0.10
     version: 9.0.10
   lint-staged:
-    specifier: 15.2.1
-    version: 15.2.1
+    specifier: 15.2.2
+    version: 15.2.2
   npm-run-all2:
     specifier: 6.1.2
     version: 6.1.2
   prettier:
-    specifier: 3.2.4
-    version: 3.2.4
+    specifier: 3.2.5
+    version: 3.2.5
   tsx:
-    specifier: 4.7.0
-    version: 4.7.0
+    specifier: 4.7.1
+    version: 4.7.1
   typescript:
     specifier: 5.3.3
     version: 5.3.3
@@ -408,13 +408,13 @@ packages:
       - supports-color
     dev: true
 
-  /@putstack/prettier-config@1.4.0(prettier@3.2.4):
+  /@putstack/prettier-config@1.4.0(prettier@3.2.5):
     resolution:
       { integrity: sha512-00HBwULXAKpQt00pQM34bIkDZPuNvSBA4ahTCFksD2SdxfcjJ/UM+4o2IDVj50JsOeyOc4r5BbfIRuSVNxNmtg== }
     peerDependencies:
       prettier: '>=3.0.3'
     dependencies:
-      prettier: 3.2.4
+      prettier: 3.2.5
     dev: true
 
   /@types/json-schema@7.0.15:
@@ -427,9 +427,9 @@ packages:
       { integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ== }
     dev: true
 
-  /@types/node@20.11.16:
+  /@types/node@20.11.17:
     resolution:
-      { integrity: sha512-gKb0enTmRCzXSSUJDq6/sPcqrfCv2mkkG6Jt/clpn5eiCbKTY+SgZUxo+p8ZKMof5dCp9vHQUAB7wOUTod22wQ== }
+      { integrity: sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw== }
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -2032,9 +2032,9 @@ packages:
       { integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg== }
     dev: true
 
-  /lint-staged@15.2.1:
+  /lint-staged@15.2.2:
     resolution:
-      { integrity: sha512-dhwAPnM85VdshybV9FWI/9ghTvMLoQLEXgVMx+ua2DN7mdfzd/tRfoU2yhMcBac0RHkofoxdnnJUokr8s4zKmQ== }
+      { integrity: sha512-TiTt93OPh1OZOsb5B7k96A/ATl2AjIZo+vnzFZ6oHK5FuTk63ByDtxGQpHm+kFETjEWqgkF95M8FRXKR/LEBcw== }
     engines: { node: '>=18.12.0' }
     hasBin: true
     dependencies:
@@ -2434,9 +2434,9 @@ packages:
     engines: { node: '>= 0.8.0' }
     dev: true
 
-  /prettier@3.2.4:
+  /prettier@3.2.5:
     resolution:
-      { integrity: sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ== }
+      { integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A== }
     engines: { node: '>=14' }
     hasBin: true
     dev: true
@@ -2860,9 +2860,9 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
-  /tsx@4.7.0:
+  /tsx@4.7.1:
     resolution:
-      { integrity: sha512-I+t79RYPlEYlHn9a+KzwrvEwhJg35h/1zHsLC2JXvhC2mdynMv6Zxzvhv5EMV6VF5qJlLlkSnMVvdZV3PSIGcg== }
+      { integrity: sha512-8d6VuibXHtlN5E3zFkgY8u4DX7Y3Z27zvvPKVmLon/D4AjuKzarkUBTLDBgj9iTQ0hg5xM7c/mYiRVM+HETf0g== }
     engines: { node: '>=18.0.0' }
     hasBin: true
     dependencies:
