@@ -16,10 +16,10 @@ function replaceAll(string: string, search: string, replace: string) {
 
 //region Part 1
 let sumOfCount = 0;
-for (let travelGroup of file) {
-  travelGroup = replaceAll(travelGroup, '\n', '');
+for (const travelGroup of file) {
+  const travelGroupCleaned = replaceAll(travelGroup, '\n', '');
   const matchedLetters: Array<string> = [];
-  for (const element of travelGroup) {
+  for (const element of travelGroupCleaned) {
     if (!matchedLetters.includes(element)) {
       matchedLetters.push(element);
     }

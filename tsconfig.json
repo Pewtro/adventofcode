@@ -20,7 +20,7 @@
 
     "noEmit": true,
     /* Not running in the DOM */
-    "lib": ["ESNext"],
+    "lib": ["ESNext"]
   },
-  "include": ["**/*.*ts", "**/*.*js"],
+  "include": ["**/*.*ts", "**/*.*js"]
 }
