@@ -3,7 +3,7 @@ import url from 'node:url';
 import { readFile } from '../../helpers/common.js';
 
 const exampleMap = readFile(path.dirname(url.fileURLToPath(import.meta.url)), 'example').split('\n\n');
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const inputMap = readFile(path.dirname(url.fileURLToPath(import.meta.url)), 'input').split('\n\n');
 
 const getSeeds = (mapPart?: string): Array<number> => {
@@ -21,8 +21,8 @@ const getSeedRanges = (seeds: Array<number>) => {
   const ranges = [];
   for (let index = 0; index < seeds.length; index += 2) {
     ranges.push({
-      start: seeds[index]!,
       end: seeds[index]! + seeds[index + 1]!,
+      start: seeds[index]!,
     });
   }
   return ranges;
@@ -41,8 +41,8 @@ const getSourceByMap = (destination: number, map: Array<readonly [number, number
   return sourceStart + offset;
 };
 
-const isSeedPresent = (seed: number, seedRanges: Array<{ start: number; end: number }>) => {
-  return seedRanges.some(({ start, end }) => start <= seed && seed <= end);
+const isSeedPresent = (seed: number, seedRanges: Array<{ end: number; start: number }>) => {
+  return seedRanges.some(({ end, start }) => start <= seed && seed <= end);
 };
 
 const getSeedByLocation = (location: number, maps: Array<Array<readonly [number, number, number]>>): number => {

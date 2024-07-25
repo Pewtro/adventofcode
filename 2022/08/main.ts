@@ -56,7 +56,6 @@ for (let x = 0; x < treeGrid[0]!.length; x++) {
 
 console.log('Visible trees:', visibleTrees.size);
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 const calculateTreeViewScore = (x: number, y: number): number => {
   const treeHeight = treeGrid[y]![x]!;
 

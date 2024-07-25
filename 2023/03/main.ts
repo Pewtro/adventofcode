@@ -21,7 +21,7 @@ const isAdjacentTo = (row: number, col: number, regex: RegExp): boolean =>
     .some((char) => char && regex.test(char));
 
 let part1 = 0;
-const adjacentNumbersToSymbolsLookup: Record<string, { num: number; id: string }> = {};
+const adjacentNumbersToSymbolsLookup: Record<string, { id: string; num: number }> = {};
 for (const [row, value] of map.entries()) {
   for (const match of [...value.matchAll(/\d+/g)].filter((x) =>
     [...x[0]].some((_, index) => isAdjacentTo(row, (x.index ?? 0) + index, /[^\d.]/)),
@@ -30,8 +30,8 @@ for (const [row, value] of map.entries()) {
 
     for (let index = 0; index < match[0].length; index++) {
       adjacentNumbersToSymbolsLookup[`${row};${(match.index ?? 0) + index}`] = {
-        num: Number.parseInt(match[0]),
         id: `${row};${match.index}`,
+        num: Number.parseInt(match[0]),
       };
     }
   }
@@ -40,7 +40,7 @@ for (const [row, value] of map.entries()) {
 let part2 = 0;
 for (const [row, value] of map.entries()) {
   for (const match of [...value.matchAll(/\*/g)].filter((m) => isAdjacentTo(row, m.index ?? 0, /\d/))) {
-    const adjacentGearNumbers: Array<{ num: number; id: string }> = directions
+    const adjacentGearNumbers: Array<{ id: string; num: number }> = directions
       .map(([index, index_]) => adjacentNumbersToSymbolsLookup[`${row + index};${(match.index ?? 0) + index_}`])
       .flatMap((x) => (x === undefined ? [] : [x]));
 

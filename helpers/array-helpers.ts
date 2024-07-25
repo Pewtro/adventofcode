@@ -1,4 +1,4 @@
-export const hasDuplicates = (array: Array<string | number | boolean>) => {
+export const hasDuplicates = (array: Array<boolean | number | string>) => {
   return new Set(array).size !== array.length;
 };
 

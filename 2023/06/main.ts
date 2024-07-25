@@ -6,8 +6,8 @@ const exampleMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), '
 const inputMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'input');
 
 interface Race {
-  time: number;
   distance: number;
+  time: number;
 }
 
 const parseLine = (input: string): Array<number> => {
@@ -24,8 +24,8 @@ const parseRaces = (input: Array<string>) => {
   const races: Array<Race> = [];
   for (const [index, time] of times.entries()) {
     races.push({
-      time: time,
       distance: distances[index]!,
+      time: time,
     });
   }
 
@@ -34,7 +34,7 @@ const parseRaces = (input: Array<string>) => {
 const solvePart1 = (input: Array<Race>) => {
   const waysToWin: Array<number> = [];
   for (const race of input) {
-    const { time, distance } = race;
+    const { distance, time } = race;
     let options = 0;
     for (let timeSpentHolding = 0; timeSpentHolding < time; timeSpentHolding++) {
       const timeSpentSailing = time - timeSpentHolding;

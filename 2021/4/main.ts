@@ -12,7 +12,6 @@ const guesses: Array<number> = input
   .trim()
   .split(',')
   .map((guess) => Number.parseInt(guess));
-debugInput && console.log(guesses);
 
 type Board = Array<Array<number>>;
 
@@ -29,7 +28,10 @@ const boards: Array<Board> = input
         .map((value) => Number.parseInt(value));
     });
   });
-debugInput && console.log(boards);
+if (debugInput) {
+  console.log(guesses);
+  console.log(boards);
+}
 
 const checkColumns = (board: Board) => {
   let hasWinner = false;
@@ -62,9 +64,11 @@ for (const guess of guesses) {
         row[valueIndex] = -1;
       }
       if ((row.every((x) => x === -1) || checkColumns(board)) && !winningBoards.includes(boardIndex)) {
-        debugGeneral && console.log('Winner found in', board);
         winningBoards.push(boardIndex);
-        debugGeneral && console.log('score for board', boardIndex, 'is', calculateScore(board, guess));
+        if (debugGeneral) {
+          console.log('Winner found in', board);
+          console.log('score for board', boardIndex, 'is', calculateScore(board, guess));
+        }
         if (winningBoards.length === 1) {
           console.log('Part one answer', calculateScore(board, guess));
         } else if (winningBoards.length === boards.length) {

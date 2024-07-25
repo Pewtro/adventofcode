@@ -25,15 +25,15 @@ console.log(numbers.reduce((a, b) => a + b, 0));
 const NumberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'] as const;
 
 const wordToNumberMap: Record<(typeof NumberWords)[number], number> = {
-  one: 1,
-  two: 2,
-  three: 3,
-  four: 4,
-  five: 5,
-  six: 6,
-  seven: 7,
   eight: 8,
+  five: 5,
+  four: 4,
   nine: 9,
+  one: 1,
+  seven: 7,
+  six: 6,
+  three: 3,
+  two: 2,
 };
 
 const numbersPart2: Array<number> = [];

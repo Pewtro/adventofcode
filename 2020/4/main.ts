@@ -6,11 +6,23 @@ const requiredFields = {
   byr: function checkField(value: number) {
     return value >= 1920 && value <= 2002;
   },
-  iyr: function checkField(value: number) {
-    return value >= 2010 && value <= 2020;
+  ecl: function checkField(value: string) {
+    const regex = /(amb|blu|brn|gry|grn|hzl|oth)/g;
+    return Boolean(regex.test(value));
   },
   eyr: function checkField(value: number) {
     return value >= 2020 && value <= 2030;
+  },
+  hcl: function checkField(value: string) {
+    if (value.length !== 7) {
+      return false;
+    }
+    if (!value.startsWith('#')) {
+      return false;
+    }
+    const sixCharacters = value.slice(1, 7);
+    const regex = /[\dA-Za-z]/g;
+    return sixCharacters.match(regex)?.length === 6;
   },
   hgt: function checkField(value: string) {
     const lastTwoChars = value.slice(-2);
@@ -24,26 +36,14 @@ const requiredFields = {
       return false;
     }
   },
-  hcl: function checkField(value: string) {
-    if (value.length !== 7) {
-      return false;
-    }
-    if (!value.startsWith('#')) {
-      return false;
-    }
-    const sixCharacters = value.slice(1, 7);
-    const regex = /[\dA-Za-z]/g;
-    return sixCharacters.match(regex)?.length === 6;
-  },
-  ecl: function checkField(value: string) {
-    const regex = /(amb|blu|brn|gry|grn|hzl|oth)/g;
-    return Boolean(regex.test(value));
+  iyr: function checkField(value: number) {
+    return value >= 2010 && value <= 2020;
   },
   pid: function checkField(value: string) {
     if (Number.isNaN(Number.parseInt(value))) {
       return false;
     }
-    return !(value.length !== 9);
+    return value.length === 9;
   },
 };
 let validPassports = 0;

@@ -27,8 +27,12 @@ let previousThreeSumValue = 0;
 const threeSumArray: [number, number, number] = [0, 0, 0];
 
 const lineTracker = {
-  set(newValue: number) {
-    previousLineValue = newValue;
+  calc() {
+    const valueToCheck = previousThreeSumValue ?? 0;
+    if (debug) {
+      console.log('sum', this.sum(), 'prevThreeSumVal', previousThreeSumValue, this.sum() > valueToCheck);
+    }
+    return this.sum() > valueToCheck;
   },
   getLineCount() {
     this.incLineCount();
@@ -37,10 +41,8 @@ const lineTracker = {
   incLineCount() {
     lineCount += 1;
   },
-  calc() {
-    const valueToCheck = previousThreeSumValue ?? 0;
-    debug && console.log('sum', this.sum(), 'prevThreeSumVal', previousThreeSumValue, this.sum() > valueToCheck);
-    return this.sum() > valueToCheck;
+  set(newValue: number) {
+    previousLineValue = newValue;
   },
   shift(newValue: number) {
     previousThreeSumValue = this.sum();
@@ -53,7 +55,7 @@ const lineTracker = {
 };
 
 //Solver that executes on a line by line basis
-rl.on('line', function (line) {
+rl.on('line', (line) => {
   //Ensure current line is a number
   const lineValue = Number.parseInt(line);
 
@@ -68,7 +70,7 @@ rl.on('line', function (line) {
   if (lineTracker.getLineCount() >= 4 && lineTracker.calc()) {
     caseTracker.threeSumInc();
   }
-}).on('close', function () {
+}).on('close', () => {
   //Throw out result
   console.log('Part one increments:', caseTracker.count);
   console.log('Part two increments:', caseTracker.threeSumCount);

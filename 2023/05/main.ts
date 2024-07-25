@@ -13,15 +13,15 @@ console.log('solution', solution);
 
 interface MapEntry {
   destinationRangeStart: number;
-  sourceRangeStart: number;
   rangeLength: number;
+  sourceRangeStart: number;
 }
 
 type GardenMap = Array<MapEntry>;
 
 interface InputData {
-  seeds: Array<number>;
   maps: Array<GardenMap>;
+  seeds: Array<number>;
 }
 
 function readInput(input: string): InputData {
@@ -44,12 +44,12 @@ function readInput(input: string): InputData {
     const [destinationRangeStart, sourceRangeStart, rangeLength] = parseNumbers(line);
     currentMap.push({
       destinationRangeStart: destinationRangeStart!,
-      sourceRangeStart: sourceRangeStart!,
       rangeLength: rangeLength!,
+      sourceRangeStart: sourceRangeStart!,
     });
   }
 
-  return { seeds, maps };
+  return { maps, seeds };
 }
 
 function parseNumbers(line?: string) {
@@ -60,14 +60,14 @@ function parseNumbers(line?: string) {
     .map((x) => Number.parseInt(x, 10));
 }
 
-function solve({ seeds, maps }: InputData) {
+function solve({ maps, seeds }: InputData) {
   return {
-    part1: solvePart1({ seeds, maps }),
-    part2: solvePart2({ seeds, maps }),
+    part1: solvePart1({ maps, seeds }),
+    part2: solvePart2({ maps, seeds }),
   };
 }
 
-function solvePart1({ seeds, maps }: InputData) {
+function solvePart1({ maps, seeds }: InputData) {
   const locations = seeds.map((seed) => getLocationBySeed(seed, maps));
   return Math.min(...locations);
 }
@@ -79,7 +79,7 @@ function getLocationBySeed(seed: number, maps: Array<GardenMap>) {
 
 function getDestinationByMap(source: number, map: GardenMap) {
   const mapEntry = map.find(
-    ({ sourceRangeStart, rangeLength }) => source >= sourceRangeStart && source <= sourceRangeStart + rangeLength,
+    ({ rangeLength, sourceRangeStart }) => source >= sourceRangeStart && source <= sourceRangeStart + rangeLength,
   );
 
   if (!mapEntry) {
@@ -90,7 +90,7 @@ function getDestinationByMap(source: number, map: GardenMap) {
   return mapEntry.destinationRangeStart + offset;
 }
 
-function solvePart2({ seeds, maps }: InputData) {
+function solvePart2({ maps, seeds }: InputData) {
   const seedRanges = getSeedRanges(seeds);
   for (let location = 0; ; location++) {
     const seed = getSeedByLocation(location, maps);
@@ -105,15 +105,15 @@ function getSeedRanges(seeds: Array<number>) {
   const ranges = [];
   for (let index = 0; index < seeds.length; index += 2) {
     ranges.push({
-      start: seeds[index]!,
       end: seeds[index]! + seeds[index + 1]!,
+      start: seeds[index]!,
     });
   }
   return ranges;
 }
 
-function isSeedPresent(seed: number, seedRanges: Array<{ start: number; end: number }>) {
-  return seedRanges.some(({ start, end }) => start <= seed && seed <= end);
+function isSeedPresent(seed: number, seedRanges: Array<{ end: number; start: number }>) {
+  return seedRanges.some(({ end, start }) => start <= seed && seed <= end);
 }
 
 function getSeedByLocation(location: number, maps: Array<GardenMap>): number {

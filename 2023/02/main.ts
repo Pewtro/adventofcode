@@ -6,7 +6,7 @@ const solve = (fileName: 'example' | 'input') => {
   const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/tests/${fileName}.in`).toString();
   const splitInput = input.split('\n');
 
-  const partOneCubesAvailable: Record<string, number> = { red: 12, green: 13, blue: 14 };
+  const partOneCubesAvailable: Record<string, number> = { blue: 14, green: 13, red: 12 };
   let summedGameIds = 0;
   let summedPowerOfCubes = 0;
   for (const line of splitInput) {
@@ -14,7 +14,7 @@ const solve = (fileName: 'example' | 'input') => {
     const [, gameId] = game!.split(' ');
     const drawsArray = draws!.split(';');
 
-    const partTwoMinimumNeeded: Record<string, number> = { red: 0, green: 0, blue: 0 };
+    const partTwoMinimumNeeded: Record<string, number> = { blue: 0, green: 0, red: 0 };
 
     let gameValid = true;
     for (const draw of drawsArray) {

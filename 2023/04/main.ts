@@ -17,7 +17,7 @@ const solve = (map: Array<string>) => {
     const amountOfWinningNumbers = winningNumbers!.filter((x) => myNumbers!.includes(x)).length;
 
     scratchCards[lineIndex] = (scratchCards[lineIndex] ?? 0) + 1;
-    const currentScratchCards = scratchCards[lineIndex]!;
+    const currentScratchCards = scratchCards[lineIndex];
     let cardValue = 0;
     //First winning number is worth 1, every next one doubles the card value
     for (let index = 0; index < amountOfWinningNumbers; index++) {

@@ -8,25 +8,25 @@ const input = readFileSync(`${path.dirname(url.fileURLToPath(import.meta.url))}/
 const lines = input.split('\n');
 
 interface File {
-  type: 'file';
   name: string;
   size: number;
+  type: 'file';
 }
 
 interface Folder {
-  type: 'folder';
-  name: string;
   children: Record<string, File | Folder>;
+  name: string;
   parent?: Folder;
   size: number;
+  type: 'folder';
 }
 
 const rootFolder: Folder = {
-  type: 'folder',
-  name: '/',
   children: {},
-  size: 0,
+  name: '/',
   parent: undefined,
+  size: 0,
+  type: 'folder',
 };
 
 let currentDirectory: Folder = rootFolder;
@@ -57,20 +57,20 @@ for (const line of lines) {
   if (sizeOrDirectory === 'dir') {
     const folderName = command ?? '';
     const newFolder: Folder = {
-      type: 'folder',
-      name: folderName,
       children: {},
-      size: 0,
+      name: folderName,
       parent: currentDirectory,
+      size: 0,
+      type: 'folder',
     };
     currentDirectory.children[folderName] = newFolder;
   } else {
     const fileName = command ?? '';
     const fileSize = Number.parseInt(sizeOrDirectory!);
     const newFile: File = {
-      type: 'file',
       name: fileName,
       size: fileSize,
+      type: 'file',
     };
     currentDirectory.children[fileName] = newFile;
     currentDirectory.size += fileSize;

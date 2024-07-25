@@ -5,13 +5,13 @@ import { readLines } from '../../helpers/common.js';
 const exampleMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'example');
 const inputMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'input');
 
-type Card = 'A' | 'K' | 'Q' | 'J' | 'T' | number;
+type Card = 'A' | 'J' | 'K' | 'Q' | 'T' | number;
 
 type Hand = `${Card}${Card}${Card}${Card}${Card}`;
 
 interface HandWithBet {
-  hand: Hand;
   bet: number;
+  hand: Hand;
 }
 
 interface HandWithBetAndType extends HandWithBet {
@@ -22,14 +22,14 @@ interface RankedHandWithBet extends HandWithBetAndType {
   rank: number;
 }
 
-type HandTypes = 'fiveOfAKind' | 'fourOfAKind' | 'fullHouse' | 'threeOfAKind' | 'twoPair' | 'pair' | 'highCard';
+type HandTypes = 'fiveOfAKind' | 'fourOfAKind' | 'fullHouse' | 'highCard' | 'pair' | 'threeOfAKind' | 'twoPair';
 
 const detectHandTypes = (hand: Hand): HandTypes => {
   const cards = [...hand] as Array<Card>;
   // eslint-disable-next-line unicorn/no-array-reduce
   const cardCounts = cards.reduce(
     (accumulator, card) => {
-      accumulator[card] = accumulator[card] ? accumulator[card]! + 1 : 1;
+      accumulator[card] = accumulator[card] ? accumulator[card] + 1 : 1;
       return accumulator;
     },
     {} as Record<Card, number>,
@@ -100,20 +100,20 @@ const sortHandHistory = (historicalHands: Array<HandWithBetAndType>) => {
 const parseHandWithBet = (line: string): HandWithBet => {
   const [hand, bet] = line.split(' ');
   return {
-    hand: hand as Hand,
     bet: Number.parseInt(bet!, 10),
+    hand: hand as Hand,
   };
 };
 
 const solvePart1 = (hands: Array<HandWithBet>) => {
   const HandHistory: Record<HandTypes, Array<HandWithBetAndType>> = {
+    fiveOfAKind: [],
+    fourOfAKind: [],
+    fullHouse: [],
     highCard: [],
     pair: [],
-    twoPair: [],
     threeOfAKind: [],
-    fullHouse: [],
-    fourOfAKind: [],
-    fiveOfAKind: [],
+    twoPair: [],
   };
 
   for (const hand of hands) {
