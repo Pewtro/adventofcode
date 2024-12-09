@@ -11,7 +11,6 @@ const solvePart1 = () => {
 const solvePart2 = () => {
   return 0;
 };
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const solve = (map: Array<string>) => {
   return {
     part1: solvePart1(),
@@ -21,5 +20,5 @@ const solve = (map: Array<string>) => {
 
 console.log('Solve example:');
 console.log(solve(exampleMap));
-console.log('\nSolve input:');
-console.log(solve(inputMap));
+//console.log('\nSolve input:');
+//console.log(solve(inputMap));
