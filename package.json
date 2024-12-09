@@ -9,8 +9,6 @@
     "@putstack/prettier-config": "1.4.3",
     "@types/node": "22.10.1",
     "eslint": "9.16.0",
-    "husky": "9.1.7",
-    "lint-staged": "15.2.10",
     "npm-run-all2": "7.0.1",
     "prettier": "3.4.2",
     "tsx": "4.19.2",
@@ -20,17 +18,8 @@
   "scripts": {
     "lint": "eslint --format stylish --max-warnings 0 --cache .",
     "lint:fix": "pnpm lint --fix",
-    "prepare": "husky",
     "stylecheck": "prettier --check .",
     "test:ci": "npm-run-all -p -l lint typecheck stylecheck",
     "typecheck": "tsc"
-  },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx,md,mdx,yml,yaml}": [
-      "prettier --write"
-    ],
-    "*.{ts,tsx,js,jsx}": [
-      "pnpm --silent lint:fix"
-    ]
   }
 }
