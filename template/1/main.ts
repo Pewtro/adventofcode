@@ -1,6 +1,6 @@
 import path from 'node:path';
 import url from 'node:url';
-import { readLines } from '../helpers/common.js';
+import { readLines } from '../../helpers/common.js';
 
 const exampleMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'example');
 const inputMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'input');
