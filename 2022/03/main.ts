@@ -11,7 +11,7 @@ const getCharacterValue = (char: string) => {
   if (char.length !== 1) {
     throw new Error(`Expected a single character, got ${char} with length of ${char.length}`);
   }
-  return char === char.toLowerCase() ? char.codePointAt(0) ?? 0 - 96 : char.codePointAt(0) ?? 0 - 38;
+  return char === char.toLowerCase() ? (char.codePointAt(0) ?? 0 - 96) : (char.codePointAt(0) ?? 0 - 38);
 };
 
 let summedPriorities = 0;

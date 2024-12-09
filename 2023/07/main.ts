@@ -9,6 +9,8 @@ type Card = 'A' | 'J' | 'K' | 'Q' | 'T' | number;
 
 type Hand = `${Card}${Card}${Card}${Card}${Card}`;
 
+type HandTypes = 'fiveOfAKind' | 'fourOfAKind' | 'fullHouse' | 'highCard' | 'pair' | 'threeOfAKind' | 'twoPair';
+
 interface HandWithBet {
   bet: number;
   hand: Hand;
@@ -21,8 +23,6 @@ interface HandWithBetAndType extends HandWithBet {
 interface RankedHandWithBet extends HandWithBetAndType {
   rank: number;
 }
-
-type HandTypes = 'fiveOfAKind' | 'fourOfAKind' | 'fullHouse' | 'highCard' | 'pair' | 'threeOfAKind' | 'twoPair';
 
 const detectHandTypes = (hand: Hand): HandTypes => {
   const cards = [...hand] as Array<Card>;

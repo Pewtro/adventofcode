@@ -11,17 +11,77 @@ const solution = solve(readInput(inputMap));
 console.log('example', exampleSolution);
 console.log('solution', solution);
 
+type GardenMap = Array<MapEntry>;
+
+interface InputData {
+  maps: Array<GardenMap>;
+  seeds: Array<number>;
+}
+
 interface MapEntry {
   destinationRangeStart: number;
   rangeLength: number;
   sourceRangeStart: number;
 }
 
-type GardenMap = Array<MapEntry>;
+function getDestinationByMap(source: number, map: GardenMap) {
+  const mapEntry = map.find(
+    ({ rangeLength, sourceRangeStart }) => source >= sourceRangeStart && source <= sourceRangeStart + rangeLength,
+  );
 
-interface InputData {
-  maps: Array<GardenMap>;
-  seeds: Array<number>;
+  if (!mapEntry) {
+    return source;
+  }
+
+  const offset = source - mapEntry.sourceRangeStart;
+  return mapEntry.destinationRangeStart + offset;
+}
+
+function getLocationBySeed(seed: number, maps: Array<GardenMap>) {
+  // eslint-disable-next-line unicorn/no-array-reduce
+  return maps.reduce((destination, map) => getDestinationByMap(destination, map), seed);
+}
+
+function getSeedByLocation(location: number, maps: Array<GardenMap>): number {
+  // eslint-disable-next-line unicorn/no-array-reduce
+  return [...maps].reverse().reduce((source, map) => getSourceByMap(source, map), location);
+}
+
+function getSeedRanges(seeds: Array<number>) {
+  const ranges = [];
+  for (let index = 0; index < seeds.length; index += 2) {
+    ranges.push({
+      end: seeds[index]! + seeds[index + 1]!,
+      start: seeds[index]!,
+    });
+  }
+  return ranges;
+}
+
+function getSourceByMap(destination: number, map: GardenMap) {
+  const mapEntry = map.find(
+    ({ destinationRangeStart, rangeLength }) =>
+      destination >= destinationRangeStart && destination <= destinationRangeStart + rangeLength,
+  );
+
+  if (!mapEntry) {
+    return destination;
+  }
+
+  const offset = destination - mapEntry.destinationRangeStart;
+  return mapEntry.sourceRangeStart + offset;
+}
+
+function isSeedPresent(seed: number, seedRanges: Array<{ end: number; start: number }>) {
+  return seedRanges.some(({ end, start }) => start <= seed && seed <= end);
+}
+
+function parseNumbers(line?: string) {
+  if (!line) return [0];
+  return line
+    .trim()
+    .split(' ')
+    .map((x) => Number.parseInt(x, 10));
 }
 
 function readInput(input: string): InputData {
@@ -52,14 +112,6 @@ function readInput(input: string): InputData {
   return { maps, seeds };
 }
 
-function parseNumbers(line?: string) {
-  if (!line) return [0];
-  return line
-    .trim()
-    .split(' ')
-    .map((x) => Number.parseInt(x, 10));
-}
-
 function solve({ maps, seeds }: InputData) {
   return {
     part1: solvePart1({ maps, seeds }),
@@ -72,24 +124,6 @@ function solvePart1({ maps, seeds }: InputData) {
   return Math.min(...locations);
 }
 
-function getLocationBySeed(seed: number, maps: Array<GardenMap>) {
-  // eslint-disable-next-line unicorn/no-array-reduce
-  return maps.reduce((destination, map) => getDestinationByMap(destination, map), seed);
-}
-
-function getDestinationByMap(source: number, map: GardenMap) {
-  const mapEntry = map.find(
-    ({ rangeLength, sourceRangeStart }) => source >= sourceRangeStart && source <= sourceRangeStart + rangeLength,
-  );
-
-  if (!mapEntry) {
-    return source;
-  }
-
-  const offset = source - mapEntry.sourceRangeStart;
-  return mapEntry.destinationRangeStart + offset;
-}
-
 function solvePart2({ maps, seeds }: InputData) {
   const seedRanges = getSeedRanges(seeds);
   for (let location = 0; ; location++) {
@@ -99,38 +133,4 @@ function solvePart2({ maps, seeds }: InputData) {
       return location;
     }
   }
-}
-
-function getSeedRanges(seeds: Array<number>) {
-  const ranges = [];
-  for (let index = 0; index < seeds.length; index += 2) {
-    ranges.push({
-      end: seeds[index]! + seeds[index + 1]!,
-      start: seeds[index]!,
-    });
-  }
-  return ranges;
-}
-
-function isSeedPresent(seed: number, seedRanges: Array<{ end: number; start: number }>) {
-  return seedRanges.some(({ end, start }) => start <= seed && seed <= end);
-}
-
-function getSeedByLocation(location: number, maps: Array<GardenMap>): number {
-  // eslint-disable-next-line unicorn/no-array-reduce
-  return [...maps].reverse().reduce((source, map) => getSourceByMap(source, map), location);
-}
-
-function getSourceByMap(destination: number, map: GardenMap) {
-  const mapEntry = map.find(
-    ({ destinationRangeStart, rangeLength }) =>
-      destination >= destinationRangeStart && destination <= destinationRangeStart + rangeLength,
-  );
-
-  if (!mapEntry) {
-    return destination;
-  }
-
-  const offset = destination - mapEntry.destinationRangeStart;
-  return mapEntry.sourceRangeStart + offset;
 }

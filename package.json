@@ -5,16 +5,17 @@
     "node": ">=18.12.0 <20 || >=20.8.0"
   },
   "devDependencies": {
-    "@putstack/eslint-config-typescript": "3.0.1",
-    "@putstack/prettier-config": "1.4.2",
-    "@types/node": "22.1.0",
-    "eslint": "9.8.0",
-    "husky": "9.1.4",
-    "npm-run-all2": "6.2.2",
-    "lint-staged": "15.2.8",
-    "prettier": "3.3.3",
-    "tsx": "4.17.0",
-    "typescript": "5.5.4"
+    "@putstack/eslint-config-typescript": "3.13.0",
+    "@putstack/prettier-config": "1.4.3",
+    "@types/node": "22.10.1",
+    "eslint": "9.16.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.2.10",
+    "npm-run-all2": "7.0.1",
+    "prettier": "3.4.2",
+    "tsx": "4.19.2",
+    "typescript": "5.7.2",
+    "typescript-eslint": "8.17.0"
   },
   "scripts": {
     "lint": "eslint --format stylish --max-warnings 0 --cache .",
