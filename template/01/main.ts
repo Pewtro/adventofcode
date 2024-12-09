@@ -5,16 +5,16 @@ import { readLines } from '../../helpers/common.js';
 const exampleMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'example');
 const inputMap = readLines(path.dirname(url.fileURLToPath(import.meta.url)), 'input');
 
-const solvePart1 = () => {
+const solvePart1 = (input: Array<string>) => {
   return 0;
 };
-const solvePart2 = () => {
+const solvePart2 = (input: Array<string>) => {
   return 0;
 };
 const solve = (map: Array<string>) => {
   return {
-    part1: solvePart1(),
-    part2: solvePart2(),
+    part1: solvePart1(map),
+    part2: solvePart2(map),
   };
 };
 
